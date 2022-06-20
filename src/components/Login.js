@@ -6,12 +6,15 @@ import "../styles/login.css";
 export default function Login() {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  if (user) {
+    navigate("/dashboard");
+  }
   return (
     <div>
       Login PAGE!!!
       <button
+        className="button-primary sign-in"
         onClick={() => signInWithGoogle(setUser, navigate)}
-        className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
       >
         Sign-in with Google
       </button>

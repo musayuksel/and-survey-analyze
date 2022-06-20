@@ -28,6 +28,8 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
+// provider.addScope("https://www.googleapis.com/auth/contacts.readonly");
+
 //add google auth provider
 export async function signInWithGoogle(setUser, navigate) {
   try {
@@ -38,9 +40,18 @@ export async function signInWithGoogle(setUser, navigate) {
       photoURL: result.user.photoURL,
       uid: result.user.uid,
     };
-    localStorage.setItem("user", JSON.stringify(user));
-    setUser(user);
-    navigate("/dashboard");
+    //check if user is oauth
+    //if user is oauth, then update user data and direct to dashboard
+    //if user is not oauth redirect to error page//401 Unauthorized
+    const isUserOauth = await checkUserOAuth(user.email);
+    if (isUserOauth) {
+      setUser(user);
+      navigate("/dashboard");
+      localStorage.setItem("user", JSON.stringify(user));
+    } else {
+      setUser(null);
+      navigate("/401");
+    }
   } catch (error) {
     console.error({ error });
   }
@@ -53,16 +64,17 @@ export function handleSignOut(setUser, navigate) {
   navigate("/");
 }
 
-//get user data from firebase and update state
-export async function getUserData(setUserData, user) {
-  const docRef = collection(db, "user_forms");
-  const getQuery = query(docRef, where("author.id", "==", user.uid));
+//get user data from firebase and check if user is oauth
+async function checkUserOAuth(userEmail) {
+  const docRef = collection(db, "users");
+  const getQuery = query(docRef, where("user.is_oauth", "==", true));
   const userData = await getDocs(getQuery);
-  const userDataArray = userData.docs.map((doc) => ({
-    ...doc.data(),
-    documentId: doc.id,
-  }));
-  setUserData(userDataArray || []);
+  let result = userData.docs
+    .map((doc) => ({
+      ...doc.data(),
+    }))
+    .some((doc) => doc.user.email === userEmail);
+  return result;
 }
 
 export async function deleteUserData(documentId) {
