@@ -3,7 +3,6 @@ import { signInWithGoogle } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../App";
 import "../styles/login.css";
-import { BsPipFill } from "react-icons/bs";
 export default function Login() {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
