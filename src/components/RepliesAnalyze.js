@@ -3,7 +3,7 @@ import { BsPercent } from "react-icons/bs";
 import "../styles/replies-analyze.css";
 export default function RepliesAnalyze({ percentage = 0 }) {
   return (
-    <div>
+    <div className="replies-analyze-container">
       <p>
         {percentage}
         <BsPercent />
