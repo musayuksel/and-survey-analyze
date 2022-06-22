@@ -22,7 +22,7 @@ export default function Login() {
       <div className="space"></div>
 
       <button
-        className="button-primary sign-in"
+        className="button-primary-sign-in"
         onClick={() => signInWithGoogle(setUser, navigate)}>
         Continue with Google
       </button>

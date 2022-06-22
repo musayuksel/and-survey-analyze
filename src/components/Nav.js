@@ -7,11 +7,14 @@ export default function Nav() {
   const navigate = useNavigate();
   const { user, setUser } = useContext(AuthContext);
   return (
-    <nav>
-      Nav bar!!!
+    <nav className="navbar">
+      <img className="imgx" src="../logo2.png" alt="icon"/>
+      
+      <div className="space"></div>
+
       {user && (
         <button
-          className="button-primary sign-out"
+          className="button-primary-sign-out"
           onClick={() => handleSignOut(setUser, navigate)}
         >
           Sign out
