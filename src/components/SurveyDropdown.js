@@ -14,12 +14,12 @@ export default function SurveyDropdown({ date, sessionName, repliesCount }) {
         <p className="one">{date}</p> 
         <p className="two">{sessionName}</p>
         <p className="three">{repliesCount}</p>
-      </div>
-      <div className="chevron">
-      <BsChevronDown onClick={handleDropdown} />
-      </div>
-      {isAnalyzeOpen && <RepliesAnalyze />}
       
+        <div className="chevron">
+        < BsChevronDown onClick={handleDropdown}/>
+        </div>
+        {isAnalyzeOpen && <RepliesAnalyze />}
+      </div>
     </section>
   );
 }

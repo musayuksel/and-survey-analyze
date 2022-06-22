@@ -6,7 +6,6 @@
     margin-right: auto;
     /* display: inline; */
     width: 1288.39px;
-    height: 112px;
     left: 219.2px;
     top: 276px;
 
@@ -17,34 +16,41 @@
 }
 
 p{
-    display: inline-block;
+    
     text-align: left;
     font-family: 'Poppins', sans-serif;
     font-size: 24px;
     line-height: 32px;
     color: #434343;
-    border: 1px solid #D82036;
-    padding-left: 0%;
-    padding-right: 0%;
+    /* border: 1px solid #D82036; */
     
 }
  
 .two{
    color: blue;
-   margin-left: 40%;
-   margin-right: 40%;
-   text-indent: -80px;
+   /* margin-left: 30%;
+   margin-right: 25%;
+   text-indent: -80px; */
 }
 
 
 .labels{
-    
+    display: flex;
+    align-items: center;
     margin: auto;
-    padding: 1%;
-    border: 1px solid black;
+    justify-content: space-between;
+    padding: 2px 3%;
+    /* display: block; */
+    /* border: 1px solid black; */
     
 }
 
 .chevron{
+    /* border: 1px solid #D82036; */
     cursor: pointer;
+    color: red;
+    display: inline-block;
+    /* left: 100px; */
+    /* margin-right: -5%; */
+    /* padding-left: 20%; */
 }
