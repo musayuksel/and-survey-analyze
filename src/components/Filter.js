@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "../styles/filter.css";
 import { FilterContext } from "./Store/FilterProvider";
 export default function Filter({ options }) {
-  const { setCurrentSurveyId, handleBootcampChange } =
+  const { handleBootcampChange, dropdownQuestions, handleCourseChoose } =
     useContext(FilterContext);
 
   const bootCampOptions = options.map((option) => (
@@ -10,6 +10,15 @@ export default function Filter({ options }) {
       {option.title}
     </option>
   ));
+  const courseFilterOptions = dropdownQuestions.map((eachQuestion) => (
+    <option
+      key={eachQuestion.questionId}
+      value={eachQuestion.question.split("<em>")[0].split("(")[0]}
+    >
+      {eachQuestion.question.split("<em>")[0].split("(")[0]}
+    </option>
+  ));
+
   return (
     <section className="filter-container">
       <div className="bootcamps-container">
@@ -20,12 +29,9 @@ export default function Filter({ options }) {
       </div>
       <div className="courses-container">
         <label htmlFor="courses">Course:</label>
-        <select name="courses" id="courses">
+        <select onChange={handleCourseChoose} name="courses" id="courses">
           <option value="">Select All</option>
-          <option value="AND Founder Vision">AND Founder Vision</option>
-          <option value="HBDI">HBDI</option>
-          <option value="Psychological Safety">Psychological Safety</option>
-          <option value="SCRUM">SCRUM</option>
+          {courseFilterOptions}
         </select>
       </div>
     </section>
