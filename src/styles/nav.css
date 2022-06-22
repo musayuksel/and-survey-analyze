@@ -1,8 +1,5 @@
-/* .space{
-    display: flex;
-    justify-items: center;
-} */
 .navbar{
+    margin-bottom: 5%;
     display: flex;
     justify-items: center;
     border: 1px solid red;
