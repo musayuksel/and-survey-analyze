@@ -1,0 +1,50 @@
+.block{
+    box-sizing: border-box;
+
+    margin-bottom: 29px;
+    margin-left: auto;
+    margin-right: auto;
+    /* display: inline; */
+    width: 1288.39px;
+    height: 112px;
+    left: 219.2px;
+    top: 276px;
+
+    background: #FFFFFF;
+    border: 1px solid #D82036;
+    border-radius: 93px;
+
+}
+
+p{
+    display: inline-block;
+    text-align: left;
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    line-height: 32px;
+    color: #434343;
+    border: 1px solid #D82036;
+    padding-left: 0%;
+    padding-right: 0%;
+    
+}
+ 
+.two{
+   color: blue;
+   margin-left: 40%;
+   margin-right: 40%;
+   text-indent: -80px;
+}
+
+
+.labels{
+    
+    margin: auto;
+    padding: 1%;
+    border: 1px solid black;
+    
+}
+
+.chevron{
+    cursor: pointer;
+}

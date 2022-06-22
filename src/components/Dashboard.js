@@ -4,7 +4,7 @@ import Filter from "./Filter";
 import SurveyDropdown from "./SurveyDropdown";
 export default function Dashboard() {
   return (
-    <div>
+    <div className="container" >
       <Filter />
       <SurveyDropdown date="6th June" sessionName="SCRUM" repliesCount={12} />
       <SurveyDropdown date="6th June" sessionName="AGILE" repliesCount={12} />

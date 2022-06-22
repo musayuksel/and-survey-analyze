@@ -9,12 +9,17 @@ export default function SurveyDropdown({ date, sessionName, repliesCount }) {
     setIsAnalyzeOpen(!isAnalyzeOpen);
   }
   return (
-    <section>
-      <p>{date}</p>
-      <p>{sessionName}</p>
-      <p>{repliesCount}</p>
+    <section className="block">
+      <div className="labels">
+        <p className="one">{date}</p> 
+        <p className="two">{sessionName}</p>
+        <p className="three">{repliesCount}</p>
+      </div>
+      <div className="chevron">
       <BsChevronDown onClick={handleDropdown} />
+      </div>
       {isAnalyzeOpen && <RepliesAnalyze />}
+      
     </section>
   );
 }

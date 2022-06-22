@@ -9,8 +9,6 @@ export default function Nav() {
   return (
     <nav className="navbar">
       <img className="imgx" src="../logo2.png" alt="icon"/>
-      
-      <div className="space"></div>
 
       {user && (
         <button
