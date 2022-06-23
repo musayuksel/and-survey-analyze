@@ -1,25 +1,16 @@
 import React from "react";
 import { BsPercent } from "react-icons/bs";
 import "../styles/replies-analyze.css";
-export default function RepliesAnalyze({ percentage = 0 }) {
+export default function RepliesAnalyze({ percentage = 0, choiceText }) {
   return (
-      <div className="container">
-
-        <div className="perc">
-          <p> {percentage}<BsPercent /></p>
-          <p> {percentage}<BsPercent /></p>
-          <p> {percentage}<BsPercent /></p>
-          <p> {percentage}<BsPercent /></p>
-          <p> {percentage}<BsPercent /></p>
-        </div>
-
+    <div className="container">
+      <div className="perc">      
         <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Culpa esse
-          accusantium incidunt neque veniam eum suscipit magni? Aperiam corporis
-          minima nobis maiores!
+          {percentage}
+          <BsPercent />
         </p>
-        <input type="text" placeholder="Comment" />
-        <button>Submit</button>
       </div>
+      <p>{choiceText}</p>
+    </div>
   );
 }
