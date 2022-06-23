@@ -20,17 +20,20 @@ export default function Filter({ options }) {
   ));
 
   return (
-
     <section className="dropdown">
       <div className="bootcamps-container">
-        <label htmlFor="bootcamps">Bootcamp:</label>
+        <label className="bootcamp-label" htmlFor="bootcamps">
+          Bootcamp:{" "}
+        </label>
         <select onChange={handleBootcampChange} name="bootcamps" id="left">
           <option value="">Select Bootcamp</option>
           {bootCampOptions}
         </select>
       </div>
       <div className="courses-container">
-        <label htmlFor="courses">Course:</label>
+        <label className="courses-label" htmlFor="courses">
+          Course:
+        </label>
         <select onChange={handleCourseChoose} name="courses" id="right">
           <option value="">Select All</option>
           {courseFilterOptions}

@@ -1,50 +1,79 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap');
 
-.dropdown{
+.dropdown {
     display: flex;
     justify-items: left;
     margin-bottom: 59px;
 
 }
 
-#left{
-    
-    margin-right: 8px;
-    margin-left: 218px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 24px 36px;
-    gap: 46px;
-    width: 315px;
-    height: 72px;
-    color: #757575;
-    font-family:'Roboto', sans-serif;
+.bootcamps-container {
+    margin-right: 10px;
+}
 
+.down-arrow {
+    color: black;
+    font-size: 16px;
+    background: none;
+}
+
+.courses-container select,
+.bootcamps-container select {
+    width: 80%;
+
+}
+
+
+
+.bootcamps-container,
+.courses-container {
+    border-radius: 56px 0px 0px 56px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ECECEC;
+    color: #757575;
+    cursor: pointer;
+    width: 315px;
+    padding: 24px 36px;
+    background-color: white;
+}
+
+.courses-container #right,
+.bootcamps-container #left {
+    color: #000;
+}
+
+.bootcamp-label {
+    margin-right: 0.5rem;
+}
+
+.courses-label {
+    margin-right: 0.5rem;
+}
+
+.courses-container {
+    border-radius: 0px 56px 56px 0px;
+}
+
+#left {
+    color: #757575;
+    font-family: 'Roboto', sans-serif;
+    border: none;
+    /* appearance: none; */
+    outline: 0;
     font-size: 18px;
     line-height: 19px;
-
-    border: 1px solid #ECECEC;
-    border-radius: 56px 0px 0px 56px;
-
     cursor: pointer;
 }
 
-#right{
-
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 24px 36px;
-    gap: 46px;
-    width: 305px;
-    height: 72px;
+#right {
+    border: none;
     color: #757575;
-    font-family:'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 18px;
     line-height: 19px;
-
-    border: 1px solid #ECECEC;
+    outline: 0;
+    /* border: 1px solid #ECECEC; */
     border-radius: 0px 56px 56px 0px;
 
     cursor: pointer;

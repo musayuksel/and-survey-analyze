@@ -4,13 +4,13 @@ import "../styles/replies-analyze.css";
 export default function RepliesAnalyze({ percentage = 0, choiceText }) {
   return (
     <div className="container">
-      <div className="perc">      
+      <div className="perc">
         <p>
           {percentage}
           <BsPercent />
         </p>
       </div>
-      <p>{choiceText}</p>
+      <p className="choice-text">{choiceText}</p>
     </div>
   );
 }

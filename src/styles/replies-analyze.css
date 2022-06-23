@@ -1,21 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap');
 
-.container{
+.container {
     /* border: 1px solid #D82036; */
     align-items: center;
 
 
 }
 
-.perc{
+.perc {
     display: flex;
     align-items: center;
     margin: auto;
-    justify-content: space-between;
+    justify-content: center;
     padding: 2px 3%;
 }
 
-.perc p{
+.perc p {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -26,22 +26,74 @@
 
 }
 
-.perc p:nth-child(1){
+.choice-text {
+    color: #757575;
+    font-size: 18px;
+    text-align: center;
+}
+
+.answers-container .container:nth-child(2) .perc p {
     background-color: #43A813;
+    border: none;
 }
 
-.perc p:nth-child(2){
+.answers-container .container:nth-child(3) .perc p {
     background-color: #FFC800;
+    border: none;
 }
 
-.perc p:nth-child(3){
+.answers-container .container:nth-child(4) .perc p {
     background-color: #2897FF;
+    border: none;
 }
 
-.perc p:nth-child(4){
+.answers-container .container:nth-child(5) .perc p {
     background-color: #7D41C8;
+    border: none;
 }
 
-.perc p:nth-child(5){
+.answers-container .container:nth-child(1) .perc p {
     background-color: #FF233C;
+    border: none;
+}
+
+.comment-input {
+    border: 1px solid #D9D9D9;
+    border-radius: 12px;
+    display: block;
+    height: 116px;
+    margin: auto;
+    padding: 0 1rem;
+    width: 40%;
+}
+
+.comment-submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #D82036;
+    border: none;
+    border-radius: 56px;
+    color: #FFFFFF;
+    cursor: pointer;
+    /* display: block; */
+    font-size: 18px;
+    height: 50px;
+    margin: 2rem auto;
+    padding: 12px 12px 12px 24px;
+    /* margin-top: 1rem; */
+
+}
+
+.comment-submit-btn span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 1rem;
+    background-color: #fff;
+    color: #D82036;
+    border-radius: 50%;
+    padding: 1px;
+    width: 24px;
+    height: 24px;
 }

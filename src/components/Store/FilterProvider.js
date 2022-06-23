@@ -41,6 +41,7 @@ const FilterProvider = ({ children }) => {
       .catch((err) => {
         console.error(err);
       });
+    // setBulkData(bulk);
   }
   function getPercentage(questionId) {
     const total = bulkData["data"].length; //15 people have responded
@@ -92,10 +93,25 @@ const FilterProvider = ({ children }) => {
       .catch((err) => {
         console.error(err);
       });
+
+    // setResponseCount(details.response_count);
+    // setBootCampDate(details.title);
+    // const surveyOptions = details.pages[0].questions[2].answers.choices.map(
+    //   (choice) => {
+    //     return { id: choice.id, text: choice.text };
+    //   }
+    // );
+    // setDropdownChoices(surveyOptions);
+    // const relatedSurveys = details.pages[0].questions[2].answers.rows.map(
+    //   (eachQuestion) => {
+    //     return { question: eachQuestion.text, questionId: eachQuestion.id };
+    //   }
+    // );
+    // setDropdownQuestions(relatedSurveys);
   }
 
   function getAllDataFromApi() {
-    // console.log("fetch started For all data:>>>>>>");
+    console.log("fetch started For all data:>>>>>>");
     fetch(`https://api.surveymonkey.com/v3/surveys`, {
       method: "GET",
       headers: {
