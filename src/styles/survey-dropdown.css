@@ -1,8 +1,49 @@
-.survey-dropdown-list-element {
-    border: 1px solid #ccc;
-    list-style-type: none;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    justify-items: center;
+.block{
+    box-sizing: border-box;
+    margin-bottom: 29px;
+    padding: 0% 12.5%;
+
+}
+
+p{
+    
+    text-align: left;
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    line-height: 32px;
+    
+}
+
+
+.labels{
+    display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding: 2px 3%;
+
+    background: #D82036;
+    border: 1px solid #D82036;
+    border-radius: 93px;
+
+    color: white;
+    
+}
+
+.chevron{
+    cursor: pointer;
+    color: white;
+    display: inline-block;
+}
+
+.analyse{
+
+    background: #FFFFFF;
+    border: 1px solid #D82036;
+    border-top: 0px;
+    border-radius: 0px 0px 93px 93px;
+    width: 97.5%;
+    margin: auto;
+    margin-top: -16px;
+    position: relative;
+    z-index: -1;
 }

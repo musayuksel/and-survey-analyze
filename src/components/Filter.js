@@ -20,17 +20,18 @@ export default function Filter({ options }) {
   ));
 
   return (
-    <section className="filter-container">
+
+    <section className="dropdown">
       <div className="bootcamps-container">
         <label htmlFor="bootcamps">Bootcamp:</label>
-        <select onChange={handleBootcampChange} name="bootcamps" id="bootcamps">
+        <select onChange={handleBootcampChange} name="bootcamps" id="left">
           <option value="">Select Bootcamp</option>
           {bootCampOptions}
         </select>
       </div>
       <div className="courses-container">
         <label htmlFor="courses">Course:</label>
-        <select onChange={handleCourseChoose} name="courses" id="courses">
+        <select onChange={handleCourseChoose} name="courses" id="right">
           <option value="">Select All</option>
           {courseFilterOptions}
         </select>
@@ -38,3 +39,5 @@ export default function Filter({ options }) {
     </section>
   );
 }
+
+// isolate the arrows somehow

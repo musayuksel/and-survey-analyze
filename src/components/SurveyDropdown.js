@@ -41,18 +41,24 @@ export default function SurveyDropdown({ sessionName, questionId }) {
     );
   });
   return (
-    <li className="survey-dropdown-list-element">
-      <p>{bootCampDate}</p>
-      <p>{sessionName}</p>
-      <p>{responseCount}</p>
-      <BsChevronDown onClick={handleDropdown} />
+    <li className="block">
+      <div className="labels">
+        <p>{bootCampDate}</p>
+        <p>{sessionName}</p>
+        <p>{responseCount}</p>
+        <div className="chevron">
+          <BsChevronDown onClick={handleDropdown} />
+        </div> 
+      </div> 
       <div
         style={{ display: isAnalyzeOpen ? "block" : "none" }}
         className="replies-container"
       >
+       <div className="analyse">   
         <div style={{ display: "flex" }} className="">
           {replies}
         </div>
+      </div>
         <input
           type="text"
           value={comment}

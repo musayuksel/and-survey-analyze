@@ -33,6 +33,7 @@ export default function Dashboard() {
       />
     ));
   return (
+    
     <main className="dashboard-container">
       <aside className="aside-filter-container">
         <Filter options={bootcamp} />
