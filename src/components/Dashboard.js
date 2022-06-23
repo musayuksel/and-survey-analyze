@@ -13,12 +13,12 @@ export default function Dashboard() {
     choosedCourse,
   } = useContext(FilterContext);
   useEffect(() => {
-    // eslint-disable-next-line
     getAllDataFromApi();
+    // eslint-disable-next-line
   }, []);
   useEffect(() => {
-    // eslint-disable-next-line
     getCurrentSurveyFromApi();
+    // eslint-disable-next-line
   }, [currentSurveyId]);
 
   const dropdownQuestionsMenu = dropdownQuestions

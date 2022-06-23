@@ -24,6 +24,7 @@ export default function Filter({ options }) {
       <div className="bootcamps-container">
         <label htmlFor="bootcamps">Bootcamp:</label>
         <select onChange={handleBootcampChange} name="bootcamps" id="bootcamps">
+          <option value="">Select Bootcamp</option>
           {bootCampOptions}
         </select>
       </div>

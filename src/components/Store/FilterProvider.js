@@ -1,5 +1,5 @@
 import React, { createContext, useState } from "react";
-import { dummyData, details, bulk } from "../../utils/surveys";
+import { dummyData } from "../../utils/surveys";
 export const FilterContext = createContext();
 
 const FilterProvider = ({ children }) => {
@@ -10,87 +10,108 @@ const FilterProvider = ({ children }) => {
   const [dropdownQuestions, setDropdownQuestions] = useState([]);
   const [choosedCourse, setChoosedCourse] = useState("");
   const [dropdownChoices, setDropdownChoices] = useState([]);
+  const [bulkData, setBulkData] = useState({ data: [] });
   function handleCourseChoose(e) {
     setChoosedCourse(e.target.value);
   }
   function handleBootcampChange(e) {
     setCurrentSurveyId(e.target.value);
+    getBulkSurveyDataFromApi(e.target.value);
   }
-  // const accessToken =
-  //   "rJOLXwrwqRRUrgYpqlqDVHDDcGAion9PigDidcOBcFAsSG4y8xTMTwFwokakYEXqhjYRpXPWZw6XZZYucTPuL4DUZOTFy-sNoV1ZNr-0i9LOyvHOWYSQyJvqW4o7oz83";
+  const accessToken =
+    "rJOLXwrwqRRUrgYpqlqDVHDDcGAion9PigDidcOBcFAsSG4y8xTMTwFwokakYEXqhjYRpXPWZw6XZZYucTPuL4DUZOTFy-sNoV1ZNr-0i9LOyvHOWYSQyJvqW4o7oz83";
 
-  async function getBulkSurveyDataFromApi() {
-    // https://api.surveymonkey.com/v3/surveys/506487016/responses/bulk
-    console.log({ bulk });
-    // bulk.data[2].pages[0].questions[2].answers
+  async function getBulkSurveyDataFromApi(endPoint) {
+    fetch(
+      `https://api.surveymonkey.com/v3/surveys/${endPoint}/responses/bulk`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setBulkData(data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+  function getPercentage(questionId) {
+    const total = bulkData["data"].length; //15 people have responded
+    const answerCounter = {};
+    bulkData.data.forEach((eachPerson) => {
+      eachPerson.pages[0].questions[2].answers.forEach((answers) => {
+        if (answers.row_id === questionId) {
+          if (answerCounter[answers.choice_id]) {
+            answerCounter[answers.choice_id] += 1;
+          } else {
+            answerCounter[answers.choice_id] = 1;
+          }
+        }
+      });
+    });
+    delete answerCounter["undefined"];
+    return { answerCounter, total };
   }
   async function getCurrentSurveyFromApi() {
-    setResponseCount(details.response_count);
-    setBootCampDate(details.title);
-    const surveyOptions = details.pages[0].questions[2].answers.choices.map(
-      (choice) => {
-        return { id: choice.id, text: choice.text };
+    fetch(
+      `https://api.surveymonkey.com/v3/surveys/${currentSurveyId}/details`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
       }
-    );
-    setDropdownChoices(surveyOptions);
-    const relatedSurveys = details.pages[0].questions[2].answers.rows.map(
-      (eachQuestion) => {
-        return { question: eachQuestion.text, questionId: eachQuestion.id };
-      }
-    );
-
-    setDropdownQuestions(relatedSurveys);
-    //     setBootCampDate(data.title);
-    // console.log("fetch started with current survey:>>>>>>", currentSurveyId);
-    // fetch(
-    //   `https://api.surveymonkey.com/v3/surveys/${currentSurveyId}/details`,
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       Accept: "application/json",
-    //       Authorization: `Bearer ${accessToken}`,
-    //     },
-    //   }
-    // )
-    //   .then((response) => {
-    //     console.log(response);
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-    //     console.log({ data });
-    //     setResponseCount(data.response_count);
-    //     setBootCampDate(data.title);
-    //     const relatedSurveys = data.pages.questions.map((eachQuestion) => {
-    //       // return eachQuestion.required.text;
-    //       console.log(eachQuestion.headings[0].heading);
-    //     });
-    //     console.log({ relatedSurveys });
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //   });
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setResponseCount(data.response_count);
+        setBootCampDate(data.title);
+        const surveyOptions = data.pages[0].questions[2].answers.choices.map(
+          (choice) => {
+            return { id: choice.id, text: choice.text };
+          }
+        );
+        setDropdownChoices(surveyOptions);
+        const relatedSurveys = data.pages[0].questions[2].answers.rows.map(
+          (eachQuestion) => {
+            return { question: eachQuestion.text, questionId: eachQuestion.id };
+          }
+        );
+        setDropdownQuestions(relatedSurveys);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   function getAllDataFromApi() {
     // console.log("fetch started For all data:>>>>>>");
-    // fetch(`https://api.surveymonkey.com/v3/surveys`, {
-    //   method: "GET",
-    //   headers: {
-    //     Accept: "application/json",
-    //     Authorization: `Bearer ${accessToken}`,
-    //   },
-    // })
-    //   .then((response) => {
-    //     console.log(response);
-    //     return response.json();
-    //   })
-    //   .then((data) => {
-    //     console.log({ data });
-    //     setBootcamp(data.data);
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //   });
+    fetch(`https://api.surveymonkey.com/v3/surveys`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setBootcamp(data.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   const filteredData = {
@@ -108,6 +129,8 @@ const FilterProvider = ({ children }) => {
     choosedCourse,
     getBulkSurveyDataFromApi,
     dropdownChoices,
+    getPercentage,
+    bulkData,
   };
 
   return (
