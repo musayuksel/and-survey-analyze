@@ -1,11 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap');
 
 .dropdown{
-    /* border: 1px solid red; */
     display: flex;
     justify-items: left;
     margin-bottom: 59px;
-    /* justify-content: space-between; */
 
 }
 
@@ -33,8 +31,6 @@
 }
 
 #right{
-    /* margin: 10px 5px 10px 5px;
-    padding: 0%; */
 
     display: flex;
     flex-direction: row;

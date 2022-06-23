@@ -11,9 +11,9 @@ export default function SurveyDropdown({ date, sessionName, repliesCount }) {
   return (
     <section className="block">
       <div className="labels">
-        <p className="one">{date}</p> 
-        <p className="two">{sessionName}</p>
-        <p className="three">{repliesCount}</p>
+        <p>{date}</p> 
+        <p>{sessionName}</p>
+        <p>{repliesCount}</p>
       
         <div className="chevron">
         < BsChevronDown onClick={handleDropdown}/>
