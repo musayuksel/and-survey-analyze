@@ -2,6 +2,46 @@
 
 .container{
     /* border: 1px solid #D82036; */
-    position: relative;
+    align-items: center;
 
+
+}
+
+.perc{
+    display: flex;
+    align-items: center;
+    margin: auto;
+    justify-content: space-between;
+    padding: 2px 3%;
+}
+
+.perc p{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid gray;
+    border-radius: 50%;
+    width: 94px;
+    height: 94px;
+
+}
+
+.perc p:nth-child(1){
+    background-color: #43A813;
+}
+
+.perc p:nth-child(2){
+    background-color: #FFC800;
+}
+
+.perc p:nth-child(3){
+    background-color: #2897FF;
+}
+
+.perc p:nth-child(4){
+    background-color: #7D41C8;
+}
+
+.perc p:nth-child(5){
+    background-color: #FF233C;
 }

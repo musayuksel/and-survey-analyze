@@ -7,8 +7,7 @@
     position: relative; 
     overflow: hidden;
     /*comment if issues*/
-    width: 1725px; 
-    height: 105px;
+    width: 100%; 
 }
 
 .imgx{

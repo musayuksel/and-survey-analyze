@@ -18,6 +18,8 @@ export default function SurveyDropdown({ date, sessionName, repliesCount }) {
         <div className="chevron">
         < BsChevronDown onClick={handleDropdown}/>
         </div>
+      </div>
+      <div className="analyse">
         {isAnalyzeOpen && <RepliesAnalyze />}
       </div>
     </section>
