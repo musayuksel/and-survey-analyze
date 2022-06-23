@@ -1,37 +1,19 @@
-.navbar{
+.navbar {
+    height: 106px;
     margin-bottom: 5%;
     display: flex;
-    justify-items: center;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2%;
     border: 1px solid red;
-    background-color: #D82036;
-    position: relative; 
-    overflow: hidden;
-    /*comment if issues*/
-    width: 100%; 
+    background-color: #d82036;
 }
 
-.imgx{
-    padding-top: 35px;
-    padding-left: 35px;
-    display: block;  
-    Width: 184px;
-    Height: 35px;
-    margin-right: auto;
+.team-logo {
+    width: 65px;
+    height: 65px;
 }
 
-.button-primary-sign-out{
-    padding: 40px; 
-    background-color: white;
-    border: 1px solid #D82036;
-    border-radius: 30px; 
-    font-size: 18px;
-    font-family: 'Roboto', sans-serif;
-    color: #323232;
-    /* line-height: 26px; */
-    /* gap: 24px; */
-    background-image: url(google.png), url(arrow.jpeg);
-    background-size: 23px 23px;
-    background-position: 5% 50%, 95% 50%;
-    background-repeat: no-repeat;
-    cursor: pointer;
+.imgx {
+    height: 35px;
 }
