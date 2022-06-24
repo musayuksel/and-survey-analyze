@@ -13,6 +13,7 @@
     margin: auto;
     justify-content: center;
     padding: 2px 3%;
+    
 }
 
 .perc p {
@@ -23,7 +24,7 @@
     border-radius: 50%;
     width: 94px;
     height: 94px;
-
+    color:white;
 }
 
 .choice-text {

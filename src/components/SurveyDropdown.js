@@ -1,7 +1,10 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import { BsChevronDown } from "react-icons/bs";
 import RepliesAnalyze from "./RepliesAnalyze";
 import "../styles/survey-dropdown.css";
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
+import SurveyPdf from "./SurveyPdf";
 import { FilterContext } from "./Store/FilterProvider";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 export default function SurveyDropdown({ sessionName, questionId }) {
@@ -19,6 +22,30 @@ export default function SurveyDropdown({ sessionName, questionId }) {
   });
   const [comment, setComment] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const printRef = useRef();
+  const [showText, setShowText] = useState(false);
+  
+  const handleDownloadPdf = async () => {
+    const element = printRef.current;
+    const canvas = await html2canvas(element);
+    const data = canvas.toDataURL('image/png');
+
+    const pdf = new jsPDF();
+    const imgProperties = pdf.getImageProperties(data);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight =
+      (imgProperties.height * pdfWidth) / imgProperties.width;
+
+    pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    // pdf.save('print.pdf');
+    pdf.save(`${bootCampDate} - ${sessionName}.pdf`);
+  };
+
+  const handlePdfPreview = () => {
+    setShowText(!showText)
+  }
+
   function handleDropdown() {
     setIsAnalyzeOpen(!isAnalyzeOpen);
   }
@@ -62,7 +89,7 @@ export default function SurveyDropdown({ sessionName, questionId }) {
         {isSubmitted ? (
           <div className="submitted-container">
             <p className="comment-summary">{comment}</p>
-            <button className="comment-submit-btn">
+            <button className="comment-submit-btn" onClick={handleDownloadPdf}>
               Download{" "}
               <span>
                 <HiOutlineArrowNarrowRight />
@@ -87,8 +114,21 @@ export default function SurveyDropdown({ sessionName, questionId }) {
                 <HiOutlineArrowNarrowRight />
               </span>
             </button>
+            {/* <button type="button" onClick={handlePdfPreview}>
+        Show PDF
+      </button> */}
+      {/* <button type="button" onClick={handleDownloadPdf}>
+        Download as PDF
+      </button> */}
+      <div className="pdf-container">
+      </div>
           </>
         )}
+      <button className="comment-submit-btn" type="button" onClick={handlePdfPreview}>
+        Show PDF 
+        <span><HiOutlineArrowNarrowRight /></span>
+      </button>
+      {showText && <div ref={printRef}><SurveyPdf selectedAnswerCounter={selectedAnswerCounter} comment={comment} sessionName={sessionName}/></div>}
       </div>
     </li>
   );

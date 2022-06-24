@@ -9,6 +9,7 @@ import FilterProvider from "./components/Store/FilterProvider";
 export const AuthContext = createContext({ user: null });
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       <FilterProvider>
