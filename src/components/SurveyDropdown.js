@@ -2,19 +2,19 @@ import React, { useContext, useState, useEffect, useRef } from "react";
 import { BsChevronDown } from "react-icons/bs";
 import RepliesAnalyze from "./RepliesAnalyze";
 import "../styles/survey-dropdown.css";
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
+import html2canvas from "html2canvas";
+import { jsPDF } from "jspdf";
 import SurveyPdf from "./SurveyPdf";
 import { FilterContext } from "./Store/FilterProvider";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
-export default function SurveyDropdown({ sessionName, questionId }) {
-  const {
-    responseCount,
-    bootCampDate,
-    dropdownChoices,
-    getPercentage,
-    bulkData,
-  } = useContext(FilterContext);
+export default function SurveyDropdown({
+  sessionName,
+  questionId,
+  eachQuestion,
+}) {
+  // console.log({ eachQuestion });
+  const { responseCount, bootCampDate, getPercentage, bulkData } =
+    useContext(FilterContext);
   const [isAnalyzeOpen, setIsAnalyzeOpen] = useState(false);
   const [selectedAnswerCounter, setSelectedAnswerCounter] = useState({
     answerCounter: {},
@@ -25,38 +25,38 @@ export default function SurveyDropdown({ sessionName, questionId }) {
 
   const printRef = useRef();
   const [showText, setShowText] = useState(false);
-  
+  // const [answerOptions, setAnswerOptions] = useState([{}]);
   const handleDownloadPdf = async () => {
     const element = printRef.current;
     const canvas = await html2canvas(element);
-    const data = canvas.toDataURL('image/png');
+    const data = canvas.toDataURL("image/png");
 
     const pdf = new jsPDF();
     const imgProperties = pdf.getImageProperties(data);
     const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight =
-      (imgProperties.height * pdfWidth) / imgProperties.width;
+    const pdfHeight = (imgProperties.height * pdfWidth) / imgProperties.width;
 
-    pdf.addImage(data, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.addImage(data, "PNG", 0, 0, pdfWidth, pdfHeight);
     // pdf.save('print.pdf');
     pdf.save(`${bootCampDate} - ${sessionName}.pdf`);
   };
 
   const handlePdfPreview = () => {
-    setShowText(!showText)
-  }
+    setShowText(!showText);
+  };
 
   function handleDropdown() {
     setIsAnalyzeOpen(!isAnalyzeOpen);
   }
   useEffect(() => {
-    const result = getPercentage(questionId);
+    const result = getPercentage(bulkData, questionId, eachQuestion.pageId);
     setSelectedAnswerCounter(result);
-    // eslint-disable-next-line
-  }, [bulkData, isAnalyzeOpen, dropdownChoices]);
-  const replies = dropdownChoices.map((choice) => {
+  }, [bulkData, eachQuestion.pageId, questionId, getPercentage]);
+  // console.log({ eachQuestion });
+
+  const replies = eachQuestion.answerOptions.map((choice) => {
     const percentage = Math.round(
-      ((selectedAnswerCounter.answerCounter[choice.id] || 0) /
+      ((selectedAnswerCounter.answerCounter[choice.id]?.counter || 0) /
         selectedAnswerCounter.total) *
         100
     );
@@ -64,19 +64,31 @@ export default function SurveyDropdown({ sessionName, questionId }) {
       <RepliesAnalyze
         key={choice.id}
         choiceText={choice.text}
+        choiceId={choice.id}
+        selectedAnswerCounter={selectedAnswerCounter}
+        // percentage={0}
         percentage={percentage || 0}
-        isAnalyzeOpen={isAnalyzeOpen}
+        isAnalyzeOpen={isAnalyzeOpen} //bunu sil
       />
     );
   });
+
+  function testFunction() {
+    // console.log({ selectedAnswerCounter });
+  }
+
   return (
-    <li className="block">
-      <div className={`labels ${isAnalyzeOpen ? "open" : ""}`}>
+    <li className="block" onClick={testFunction}>
+      <div
+        onClick={handleDropdown}
+        style={{ cursor: "pointer" }}
+        className={`labels ${isAnalyzeOpen ? "open" : ""}`}
+      >
         <p>{bootCampDate}</p>
         <p>{sessionName}</p>
         <p>{responseCount}</p>
         <div className={`chevron ${isAnalyzeOpen ? "open" : ""}`}>
-          <BsChevronDown onClick={handleDropdown} />
+          <BsChevronDown />
         </div>
       </div>
       <div
@@ -117,18 +129,33 @@ export default function SurveyDropdown({ sessionName, questionId }) {
             {/* <button type="button" onClick={handlePdfPreview}>
         Show PDF
       </button> */}
-      {/* <button type="button" onClick={handleDownloadPdf}>
+            {/* <button type="button" onClick={handleDownloadPdf}>
         Download as PDF
       </button> */}
-      <div className="pdf-container">
-      </div>
+            <div className="pdf-container"></div>
           </>
         )}
-      <button className="comment-submit-btn" type="button" onClick={handlePdfPreview}>
-        Show PDF 
-        <span><HiOutlineArrowNarrowRight /></span>
-      </button>
-      {showText && <div ref={printRef}><SurveyPdf selectedAnswerCounter={selectedAnswerCounter} comment={comment} sessionName={sessionName}/></div>}
+        {isSubmitted && (
+          <button
+            className="comment-submit-btn"
+            type="button"
+            onClick={handlePdfPreview}
+          >
+            Show PDF
+            <span>
+              <HiOutlineArrowNarrowRight />
+            </span>
+          </button>
+        )}
+        {showText && (
+          <div ref={printRef}>
+            <SurveyPdf
+              selectedAnswerCounter={selectedAnswerCounter.answerCounter}
+              comment={comment}
+              sessionName={sessionName}
+            />
+          </div>
+        )}
       </div>
     </li>
   );
