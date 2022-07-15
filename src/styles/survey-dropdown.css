@@ -1,9 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap');
+
 .block {
     box-sizing: border-box;
     margin-bottom: 29px;
-    /* padding: 0% 12.5%; */
+    overflow: hidden;
     list-style-type: none;
-
 }
 
 ul {
@@ -16,7 +17,6 @@ p {
     font-family: 'Poppins', sans-serif;
     font-size: 24px;
     line-height: 32px;
-
 }
 
 
@@ -25,12 +25,12 @@ p {
     align-items: center;
     justify-content: space-between;
     padding: 1rem 3%;
-
     background: #fff;
     border: 1px solid #D82036;
     border-radius: 93px;
     position: relative;
     color: #434343;
+    transition: all 0.3s ease;
     z-index: 10;
 }
 
@@ -71,14 +71,43 @@ p {
     margin-top: -36px;
     position: relative;
     padding-top: 3rem;
+    animation-duration: 1s;
+    animation-name: slidein;
+}
 
-    /* z-index: -1; */
+@keyframes slidein {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0%);
+    }
 }
 
 .answers-container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(0px, 1fr));
     justify-content: center;
     justify-items: center;
 
+}
+
+.user-feedback-container {
+    font-family: 'Roboto';
+    font-style: italic;
+    color: #666;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 2rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+    text-align: justify;
+}
+
+.user-feedback-container li {
+    margin-bottom: 1rem;
 }
