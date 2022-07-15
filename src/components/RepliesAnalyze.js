@@ -24,9 +24,6 @@ export default function RepliesAnalyze({
       <li key={nanoid(5)}>{eachComment}</li>
     ));
   }
-  // const commentListItems = selectedAnswerCounter?.answerCounter[
-  //   choiceId
-  // ].text.map((eachComment) => <li>{eachComment}</li>);
 
   return (
     <>

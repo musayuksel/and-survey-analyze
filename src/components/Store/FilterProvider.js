@@ -11,10 +11,8 @@ const FilterProvider = ({ children }) => {
   const [bootCampDate, setBootCampDate] = useState("6th June");
   const [dropdownQuestions, setDropdownQuestions] = useState([]);
   const [choosedCourse, setChoosedCourse] = useState("");
-  // const [dropdownChoices, setDropdownChoices] = useState([]);
-  // console.log({ dropdownChoices, dropdownQuestions });
-  const [bulkData, setBulkData] = useState({ data: [] });
 
+  const [bulkData, setBulkData] = useState({ data: [] });
   function handleCourseChoose(e) {
     setChoosedCourse(e.target.value);
   }
@@ -26,7 +24,7 @@ const FilterProvider = ({ children }) => {
     "rJOLXwrwqRRUrgYpqlqDVHDDcGAion9PigDidcOBcFAsSG4y8xTMTwFwokakYEXqhjYRpXPWZw6XZZYucTPuL4DUZOTFy-sNoV1ZNr-0i9LOyvHOWYSQyJvqW4o7oz83";
 
   async function getBulkSurveyDataFromApi(endPoint) {
-    console.log("fetch started For BULK DATA:>>>>>>");
+    console.log("fetch started For BULK DATA:>>>>>>", endPoint);
     fetch(
       `https://api.surveymonkey.com/v3/surveys/${endPoint}/responses/bulk`,
       {
@@ -53,6 +51,7 @@ const FilterProvider = ({ children }) => {
     //   setBulkData(bulk);
     //   setResponseCount(bulk.total);
     // }, 100);
+    // ************************************
   }
 
   async function getCurrentSurveyFromApi() {
@@ -104,8 +103,8 @@ const FilterProvider = ({ children }) => {
     //     });
     //   });
     // });
-    // // console.log({ relatedSurveys });
     // setDropdownQuestions(relatedSurveys);
+    // ************************************
   }
   function getChoiceIdAndTextOfQuestion(question) {
     const result = [];
@@ -138,18 +137,17 @@ const FilterProvider = ({ children }) => {
     // setTimeout(() => {
     //   setBootcamp(dummyData.data);
     // }, 500);
+    // ************************************
   }
 
   function getPercentage(bulkData, questionId, pageId) {
     const total = bulkData["data"]?.length; //15 people have responded
-    // console.log({ pageId, total, bulkData, questionId, pageId });
     const answerCounter = {};
     bulkData.data?.forEach((eachPerson) => {
       const currentPage = eachPerson.pages.find((page) => page.id === pageId);
       const currentQuestion = currentPage?.questions.find(
         (question) => question.id === questionId
       );
-      // console.log({ currentPage, currentQuestion });
       if (currentQuestion?.answers[0].choice_id) {
         if (answerCounter[currentQuestion.answers[0].choice_id]) {
           answerCounter[currentQuestion.answers[0].choice_id].counter += 1;
@@ -162,21 +160,7 @@ const FilterProvider = ({ children }) => {
             text: [currentQuestion.answers[1]?.text || ""],
           };
         }
-      } else {
-        //just text
-        console.log("burayi bilmiyorum,,,,,,,");
       }
-
-      // currentQuestion?.answers.forEach((answer) => {
-      //   if (answerCounter[answer.choice_id]) {
-      //     answerCounter[answer.choice_id].counter += 1; //buraya comment olarak yazilan textleri de ekle
-      //     answerCounter[answer.choice_id].text.push();
-      //   } else {
-      //     answerCounter[answer.choice_id].counter = 1;
-      //   }
-      //   // }
-      // });
-      // console.log({ answerCounter });
     });
     // delete answerCounter["undefined"];
     return { answerCounter, total };
@@ -196,7 +180,6 @@ const FilterProvider = ({ children }) => {
     handleCourseChoose,
     choosedCourse,
     getBulkSurveyDataFromApi,
-    // dropdownChoices,
     getPercentage,
     bulkData,
   };
