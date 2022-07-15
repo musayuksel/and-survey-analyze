@@ -13,6 +13,7 @@ export default function Dashboard() {
     currentSurveyId,
     dropdownQuestions,
     choosedCourse,
+    responseCount,
   } = useContext(FilterContext);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -29,10 +30,7 @@ export default function Dashboard() {
   }, [currentSurveyId]);
 
   const dropdownQuestionsMenu = dropdownQuestions
-    .filter((eachQuestion) => {
-      // console.log({ eachQuestion });
-      return eachQuestion.question.includes(choosedCourse);
-    })
+    .filter((eachQuestion) => eachQuestion.question.includes(choosedCourse))
     .map((eachQuestion) => (
       <SurveyDropdown
         eachQuestion={eachQuestion}
@@ -49,7 +47,9 @@ export default function Dashboard() {
       <aside className="aside-filter-container">
         <Filter options={bootcamp} />
       </aside>
-      <ul className="survey-dropdown-container">{dropdownQuestionsMenu}</ul>
+      <ul className="survey-dropdown-container">
+        {responseCount > 0 && dropdownQuestionsMenu}
+      </ul>
     </main>
   );
 }
