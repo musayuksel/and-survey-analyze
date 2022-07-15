@@ -5,14 +5,15 @@ import "../styles/survey-dropdown.css";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import SurveyPdf from "./SurveyPdf";
+import { BsPercent } from "react-icons/bs";
 import { FilterContext } from "./Store/FilterProvider";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+import { nanoid } from "nanoid";
 export default function SurveyDropdown({
   sessionName,
   questionId,
   eachQuestion,
 }) {
-  // console.log({ eachQuestion });
   const { responseCount, bootCampDate, getPercentage, bulkData } =
     useContext(FilterContext);
   const [isAnalyzeOpen, setIsAnalyzeOpen] = useState(false);
@@ -22,10 +23,37 @@ export default function SurveyDropdown({
   });
   const [comment, setComment] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-
+  const [isCommentOpen, setIsCommentOpen] = useState(false);
+  const [userFeedBack, setUserFeedBack] = useState([]);
   const printRef = useRef();
   const [showText, setShowText] = useState(false);
-  // const [answerOptions, setAnswerOptions] = useState([{}]);
+  const [currentPDF, setCurrentPDF] = useState();
+
+  useEffect(() => {
+    setCurrentPDF(
+      eachQuestion.answerOptions.map((choice) => {
+        const percentage = Math.round(
+          ((selectedAnswerCounter.answerCounter[choice.id]?.counter || 0) /
+            selectedAnswerCounter.total) *
+            100
+        );
+        return (
+          <div key={nanoid(5)} className="pdf-container">
+            <div className="pdf-perc">
+              <p>
+                {percentage || 0}
+                <BsPercent />
+              </p>
+            </div>
+            <div className="pdf-choice-container">
+              <p className="pdf-choice-text">{choice.text}</p>
+            </div>
+          </div>
+        );
+      })
+    );
+  }, [eachQuestion, selectedAnswerCounter]);
+
   const handleDownloadPdf = async () => {
     const element = printRef.current;
     const canvas = await html2canvas(element);
@@ -52,7 +80,6 @@ export default function SurveyDropdown({
     const result = getPercentage(bulkData, questionId, eachQuestion.pageId);
     setSelectedAnswerCounter(result);
   }, [bulkData, eachQuestion.pageId, questionId, getPercentage]);
-  // console.log({ eachQuestion });
 
   const replies = eachQuestion.answerOptions.map((choice) => {
     const percentage = Math.round(
@@ -66,19 +93,27 @@ export default function SurveyDropdown({
         choiceText={choice.text}
         choiceId={choice.id}
         selectedAnswerCounter={selectedAnswerCounter}
-        // percentage={0}
         percentage={percentage || 0}
-        isAnalyzeOpen={isAnalyzeOpen} //bunu sil
       />
     );
   });
 
-  function testFunction() {
-    // console.log({ selectedAnswerCounter });
+  function handleSeeAllComments(bulkData2) {
+    const comments = [];
+    bulkData2.data.forEach((eachUser, i) => {
+      const currentPage = eachUser.pages.find(
+        (page) => page.id === eachQuestion.pageId
+      );
+      const currentQuestion = currentPage.questions.find((question, j) => {
+        return question.id === questionId;
+      });
+      comments.push(currentQuestion?.answers[0].text);
+    });
+    setIsCommentOpen(!isCommentOpen);
+    setUserFeedBack(comments);
   }
-
   return (
-    <li className="block" onClick={testFunction}>
+    <li className="block">
       <div
         onClick={handleDropdown}
         style={{ cursor: "pointer" }}
@@ -96,7 +131,25 @@ export default function SurveyDropdown({
         className="replies-container"
       >
         <div className="analyse">
-          <div className="answers-container">{replies}</div>
+          {isCommentOpen && (
+            <ul className="user-feedback-container">
+              {userFeedBack.map((comment) => (
+                <li key={nanoid(5)}>{comment}</li>
+              ))}
+            </ul>
+          )}
+          <div className="answers-container">
+            {replies.length !== 0 ? (
+              replies
+            ) : (
+              <button
+                className="comment-submit-btn"
+                onClick={() => handleSeeAllComments(bulkData)}
+              >
+                {`${isCommentOpen ? "HIDE" : "SEE"} ALL COMMENTS`}
+              </button>
+            )}
+          </div>
         </div>
         {isSubmitted ? (
           <div className="submitted-container">
@@ -126,12 +179,6 @@ export default function SurveyDropdown({
                 <HiOutlineArrowNarrowRight />
               </span>
             </button>
-            {/* <button type="button" onClick={handlePdfPreview}>
-        Show PDF
-      </button> */}
-            {/* <button type="button" onClick={handleDownloadPdf}>
-        Download as PDF
-      </button> */}
             <div className="pdf-container"></div>
           </>
         )}
@@ -150,9 +197,9 @@ export default function SurveyDropdown({
         {showText && (
           <div ref={printRef}>
             <SurveyPdf
-              selectedAnswerCounter={selectedAnswerCounter.answerCounter}
               comment={comment}
               sessionName={sessionName}
+              currentPDF={currentPDF}
             />
           </div>
         )}
