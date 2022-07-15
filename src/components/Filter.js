@@ -13,12 +13,10 @@ export default function Filter({ options }) {
   const courseFilterOptions = dropdownQuestions.map((eachQuestion) => (
     <option
       key={eachQuestion.questionId}
-      // value={eachQuestion.question}
       value={
         eachQuestion.question.split("<em>")[0].split("(")[0].split("<span")[0]
       }
     >
-      {/* {eachQuestion.question} */}
       {eachQuestion.question.split("<em>")[0].split("(")[0].split("<span")[0]}
     </option>
   ));
