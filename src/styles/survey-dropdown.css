@@ -1,9 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap');
+
 .block {
     box-sizing: border-box;
     margin-bottom: 29px;
     overflow: hidden;
     list-style-type: none;
-
 }
 
 ul {
@@ -16,7 +17,6 @@ p {
     font-family: 'Poppins', sans-serif;
     font-size: 24px;
     line-height: 32px;
-
 }
 
 
@@ -73,7 +73,6 @@ p {
     padding-top: 3rem;
     animation-duration: 1s;
     animation-name: slidein;
-    /* z-index: -1; */
 }
 
 @keyframes slidein {
@@ -92,4 +91,23 @@ p {
     justify-content: center;
     justify-items: center;
 
+}
+
+.user-feedback-container {
+    font-family: 'Roboto';
+    font-style: italic;
+    color: #666;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 2rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+    text-align: justify;
+}
+
+.user-feedback-container li {
+    margin-bottom: 1rem;
 }
