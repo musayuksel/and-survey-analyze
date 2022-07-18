@@ -6,7 +6,7 @@ export const FilterContext = createContext();
 
 const FilterProvider = ({ children }) => {
   const [bootcamp, setBootcamp] = useState([]);
-  const [currentSurveyId, setCurrentSurveyId] = useState("506686870");
+  const [currentSurveyId, setCurrentSurveyId] = useState("");
   const [responseCount, setResponseCount] = useState(0);
   const [bootCampDate, setBootCampDate] = useState("6th June");
   const [dropdownQuestions, setDropdownQuestions] = useState([]);
@@ -56,39 +56,43 @@ const FilterProvider = ({ children }) => {
 
   async function getCurrentSurveyFromApi() {
     console.log("fetch started For CURRENT SURVEY:>>>>>>");
-    fetch(
-      `https://api.surveymonkey.com/v3/surveys/${currentSurveyId}/details`,
-      {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then((details) => {
-        setBootCampDate(details.title);
+    if (currentSurveyId) {
+      fetch(
+        `https://api.surveymonkey.com/v3/surveys/${currentSurveyId}/details`,
+        {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((details) => {
+          setBootCampDate(details.title);
 
-        const relatedSurveys = [];
-        details.pages.forEach((page) => {
-          page.questions.forEach((eachQuestion) => {
-            relatedSurveys.push({
-              question: eachQuestion.headings[0].heading,
-              questionId: eachQuestion.id,
-              answerOptions: getChoiceIdAndTextOfQuestion(eachQuestion),
-              pageId: page.id,
+          const relatedSurveys = [];
+          details.pages.forEach((page) => {
+            page.questions.forEach((eachQuestion) => {
+              relatedSurveys.push({
+                question: eachQuestion.headings[0].heading,
+                questionId: eachQuestion.id,
+                answerOptions: getChoiceIdAndTextOfQuestion(eachQuestion),
+                pageId: page.id,
+              });
             });
           });
-        });
 
-        setDropdownQuestions(relatedSurveys);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+          setDropdownQuestions(relatedSurveys);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    }
     // ************************************
 
     // setBootCampDate(details.title);
