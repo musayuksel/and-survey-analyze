@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { signInWithGoogle } from "../firebase-config";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../App";
@@ -6,14 +6,16 @@ import "../styles/login.css";
 export default function Login() {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  if (user) {
-    navigate("/dashboard");
-  }
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+    // eslint-disable-next-line
+  }, [user]);
   return (
     <div className="login-page">
+      <img className="img" src="../Full Circle.png" alt="icon" />
 
-        <img className="img" src="../Full Circle.png" alt="icon"/> 
-      
       <h4 className="maintext">Log in to your Account</h4>
       <br></br>
       <h6 className="subtext">Sign in to access your onboarding feedback</h6>
@@ -23,11 +25,10 @@ export default function Login() {
 
       <button
         className="button-primary-sign-in"
-        onClick={() => signInWithGoogle(setUser, navigate)}>
+        onClick={() => signInWithGoogle(setUser, navigate)}
+      >
         Continue with Google
       </button>
-
     </div>
-
   );
 }

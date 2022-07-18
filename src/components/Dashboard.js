@@ -17,9 +17,12 @@ export default function Dashboard() {
   } = useContext(FilterContext);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-  if (!user) {
-    navigate("/401");
-  }
+  useEffect(() => {
+    if (!user) {
+      navigate("/401");
+    }
+    // eslint-disable-next-line
+  }, [user]);
   useEffect(() => {
     getAllDataFromApi();
     // eslint-disable-next-line
