@@ -28,7 +28,6 @@ export default function SurveyDropdown({
   const printRef = useRef();
   const [showText, setShowText] = useState(false);
   const [currentPDF, setCurrentPDF] = useState();
-
   useEffect(() => {
     setCurrentPDF(
       eachQuestion.answerOptions.map((choice) => {
@@ -89,7 +88,7 @@ export default function SurveyDropdown({
     );
     return (
       <RepliesAnalyze
-        key={choice.id}
+        key={nanoid(5)}
         choiceText={choice.text}
         choiceId={choice.id}
         selectedAnswerCounter={selectedAnswerCounter}
