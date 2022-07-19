@@ -9,6 +9,19 @@ import { BsPercent } from "react-icons/bs";
 import { FilterContext } from "./Store/FilterProvider";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { nanoid } from "nanoid";
+import { Button, notification } from "antd";
+
+const openNotification = (placement) => {
+  notification.open({
+    message: "Success!",
+    description: "PDF Succesfully Downloaded.",
+    placement,
+    onClick: () => {
+      console.log("Notification Clicked!");
+    },
+  });
+};
+
 export default function SurveyDropdown({
   sessionName,
   questionId,
@@ -68,6 +81,11 @@ export default function SurveyDropdown({
     // pdf.save('print.pdf');
     pdf.save(`${bootCampDate} - ${sessionName}.pdf`);
   };
+
+  function handleDownloadAndSuccess() {
+    handleDownloadPdf();
+    openNotification("bottomLeft");
+  }
 
   const handlePdfPreview = () => {
     setShowText(!showText);
@@ -154,8 +172,11 @@ export default function SurveyDropdown({
         {isSubmitted ? (
           <div className="submitted-container">
             <p className="comment-summary">{comment}</p>
-            <button className="comment-submit-btn" onClick={handleDownloadPdf}>
-              Download{" "}
+            <button
+              className="comment-submit-btn"
+              onClick={handleDownloadAndSuccess}
+            >
+              Download
               <span>
                 <HiOutlineArrowNarrowRight />
               </span>
