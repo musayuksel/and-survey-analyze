@@ -29,7 +29,7 @@ const SurveyPdf = ({ comment, sessionName, currentPDF }) => {
           <div>{currentPDF}</div>
         </div>
         <hr />
-        <h4>On-Boarding Team Comments:</h4>
+        <h4 className="comments-section-title">On-Boarding Team Comments:</h4>
         <div className="comments">{comment}</div>
       </div>
     </div>
