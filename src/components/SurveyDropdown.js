@@ -9,7 +9,7 @@ import { BsPercent } from "react-icons/bs";
 import { FilterContext } from "./Store/FilterProvider";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { nanoid } from "nanoid";
-import { Button, notification } from "antd";
+import { notification } from "antd";
 
 const openNotification = (placement) => {
   notification.open({
