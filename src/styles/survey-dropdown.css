@@ -1,63 +1,62 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap');
+@import "~antd/dist/antd.css";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap");
 
 .block {
-    box-sizing: border-box;
-    margin-bottom: 29px;
-    overflow: hidden;
-    list-style-type: none;
+  box-sizing: border-box;
+  margin-bottom: 29px;
+  overflow: hidden;
+  list-style-type: none;
 }
 
 ul {
-    padding-inline-start: 0px;
+  padding-inline-start: 0px;
 }
 
 p {
-
-    text-align: left;
-    font-family: 'Poppins', sans-serif;
-    font-size: 24px;
-    line-height: 32px;
+  text-align: left;
+  font-family: "Poppins", sans-serif;
+  font-size: 24px;
+  line-height: 32px;
 }
 
-
 .labels {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 3%;
-    background: #fff;
-    border: 1px solid #D82036;
-    border-radius: 93px;
-    position: relative;
-    color: #434343;
-    transition: all 0.3s ease;
-    z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 3%;
+  background: #fff;
+  border: 1px solid #d82036;
+  border-radius: 93px;
+  position: relative;
+  color: #434343;
+  transition: all 0.3s ease;
+  z-index: 10;
 }
 
 .labels.open {
-    background-color: #D82036;
-    color: #fff;
+  background-color: #d82036;
+  color: #fff;
 }
 
 .chevron {
-    cursor: pointer;
-    color: #434343;
-    display: inline-block;
+  cursor: pointer;
+  color: #434343;
+  display: inline-block;
 }
 
 .comment-summary {
-    border-top: 1px solid #000;
-    font-family: "Roboto", sans-serif;
-    color: #252424;
-    width: 80%;
-    margin: auto;
-    padding: 2rem 5rem;
-    text-align: center;
+  border-top: 1px solid #000;
+  font-family: "Roboto", sans-serif;
+  color: #252424;
+  width: 80%;
+  margin: auto;
+  padding: 2rem 5rem;
+  text-align: center;
 }
 
 .chevron.open {
-    color: #fff;
-    transform: rotate(180deg);
+  color: #fff;
+  transform: rotate(180deg);
 }
 
 .replies-container {
@@ -73,41 +72,41 @@ p {
     padding-top: 3rem;
     animation-duration: 1s;
     animation-name: slidein;
+
 }
 
 @keyframes slidein {
-    from {
-        transform: translateY(-100%);
-    }
+  from {
+    transform: translateY(-100%);
+  }
 
-    to {
-        transform: translateY(0%);
-    }
+  to {
+    transform: translateY(0%);
+  }
 }
 
 .answers-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(0px, 1fr));
-    justify-content: center;
-    justify-items: center;
-
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0px, 1fr));
+  justify-content: center;
+  justify-items: center;
 }
 
 .user-feedback-container {
-    font-family: 'Roboto';
-    font-style: italic;
-    color: #666;
-    font-weight: 400;
-    font-size: 1rem;
-    line-height: 2rem;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    width: 80%;
-    margin: auto;
-    text-align: justify;
+  font-family: "Roboto";
+  font-style: italic;
+  color: #666;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 2rem;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+  text-align: justify;
 }
 
 .user-feedback-container li {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
