@@ -171,15 +171,6 @@ export default function SurveyDropdown({
         {isSubmitted ? (
           <div className="submitted-container">
             <p className="comment-summary">{comment}</p>
-            <button
-              className="comment-submit-btn"
-              onClick={handleDownloadAndSuccess}
-            >
-              Download
-              <span>
-                <HiOutlineArrowNarrowRight />
-              </span>
-            </button>
           </div>
         ) : (
           <>
@@ -214,14 +205,26 @@ export default function SurveyDropdown({
             </span>
           </button>
         )}
+        {}
         {showText && (
-          <div ref={printRef}>
-            <SurveyPdf
-              comment={comment}
-              sessionName={sessionName}
-              currentPDF={currentPDF}
-            />
-          </div>
+          <>
+            <button
+              className="comment-submit-btn"
+              onClick={handleDownloadAndSuccess}
+            >
+              Download
+              <span>
+                <HiOutlineArrowNarrowRight />
+              </span>
+            </button>
+            <div ref={printRef}>
+              <SurveyPdf
+                comment={comment}
+                sessionName={sessionName}
+                currentPDF={currentPDF}
+              />
+            </div>
+          </>
         )}
       </div>
     </li>
