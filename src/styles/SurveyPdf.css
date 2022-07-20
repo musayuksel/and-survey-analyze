@@ -39,6 +39,7 @@
   text-align: left;
   margin: 0 40px;
   display: block;
+  font-size: 1rem;
 }
 
 .pdf-content hr {
@@ -46,6 +47,8 @@
 }
 
 .comments-section-title {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.25rem;
   font-weight: bold;
 }
 
