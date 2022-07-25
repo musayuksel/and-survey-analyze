@@ -156,12 +156,20 @@ const FilterProvider = ({ children }) => {
         if (answerCounter[currentQuestion.answers[0].choice_id]) {
           answerCounter[currentQuestion.answers[0].choice_id].counter += 1;
           answerCounter[currentQuestion.answers[0].choice_id].text.push(
-            currentQuestion?.answers[1]?.text
+            currentQuestion?.answers[1]?.text +
+              " (" +
+              eachPerson.pages[0].questions[0].answers[0].text +
+              " )"
           );
         } else {
           answerCounter[currentQuestion.answers[0].choice_id] = {
             counter: 1,
-            text: [currentQuestion.answers[1]?.text || ""],
+            text: [
+              currentQuestion.answers[1]?.text +
+                " (" +
+                eachPerson.pages[0].questions[0].answers[0].text +
+                " )" || "",
+            ],
           };
         }
       }

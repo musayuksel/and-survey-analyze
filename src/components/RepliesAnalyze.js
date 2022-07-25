@@ -16,13 +16,23 @@ export default function RepliesAnalyze({
   }
 
   function getCommentListItems(items) {
+    // const nonEmptyComments = items.filter((item) => true);
     const nonEmptyComments = items.filter((item) => item);
     if (nonEmptyComments.length === 0) {
       return <li>Sorry!!! There is no comment for this question!!!</li>;
     }
-    return nonEmptyComments.map((eachComment) => (
-      <li key={nanoid(5)}>{eachComment}</li>
-    ));
+    return nonEmptyComments.map((eachComment) => {
+      // undefined (Name Lastname )will return No comment -- Name Lastname
+      if (eachComment.split("(")[0].includes("undefined")) {
+        return (
+          <li key={nanoid(5)}>
+            No comment -- {eachComment.split("undefined")[1]}
+          </li>
+        );
+      } else {
+        return <li key={nanoid(5)}>{eachComment}</li>;
+      }
+    });
   }
 
   return (
