@@ -1,33 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Roboto:wght@400&display=swap');
 
-body{
+body {
     /* padding-top: 10%; */
     background-color: #F8F8F8;
 }
 
-.img{
-width: 130px;
-height: 129.56px;
-top: 358.87px;
-padding-top: 68.87px;
+.img {
+    width: 130px;
+    top: 358.87px;
+    padding-top: 68.87px;
 }
 
-.login-page{
-  margin: auto;
-  width: 566px;
-  height: 549px;
-  padding-bottom: 68px;
-  font-family: 'Poppins', sans-serif;
-  border-style: solid;
-  border-color: #F8F8FF;
-  border-radius: 37px;
-  box-shadow: 0px 3px 8px rgba(38, 38, 38, 0.1);
-  background-color: white;
-  top: 100px;
+.login-page {
+    margin: auto;
+    width: 566px;
+    height: 549px;
+    padding-bottom: 68px;
+    font-family: 'Poppins', sans-serif;
+    border-style: solid;
+    border-color: #F8F8FF;
+    border-radius: 37px;
+    box-shadow: 0px 3px 8px rgba(38, 38, 38, 0.1);
+    background-color: white;
+    top: 100px;
 }
 
 
-.maintext{
+.maintext {
     margin: 0;
     padding-top: 10%;
     font-size: 30px;
@@ -36,21 +35,22 @@ padding-top: 68.87px;
 
 }
 
-.subtext{
+.subtext {
     margin: 0;
-    font-family:'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    color: #757575;;
+    color: #757575;
+    ;
     /* line-height: 26px; */
     align-items: center;
     text-align: center;
 }
 
-.button-primary-sign-in{
+.button-primary-sign-in {
     padding: 2% 10% 2% 10%;
     background-color: white;
     border: 1px solid #D82036;
-    border-radius: 30px; 
+    border-radius: 30px;
     font-size: 18px;
     font-family: 'Roboto', sans-serif;
     color: #323232;
@@ -63,6 +63,6 @@ padding-top: 68.87px;
     cursor: pointer;
 }
 
-.space{
+.space {
     padding-top: 10%;
 }
