@@ -124,7 +124,12 @@ export default function SurveyDropdown({
       const currentQuestion = currentPage.questions.find((question, j) => {
         return question.id === questionId;
       });
-      comments.push(currentQuestion?.answers[0].text);
+      comments.push(
+        currentQuestion?.answers[0].text +
+          " - ( " +
+          eachUser.pages[0].questions[0].answers[0].text +
+          " )"
+      );
     });
     setIsCommentOpen(!isCommentOpen);
     setUserFeedBack(comments);
