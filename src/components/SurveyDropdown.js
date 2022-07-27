@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BsChevronDown } from "react-icons/bs";
 import RepliesAnalyze from "./RepliesAnalyze";
 import "../styles/survey-dropdown.css";
@@ -6,10 +6,10 @@ import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import SurveyPdf from "./SurveyPdf";
 import { BsPercent } from "react-icons/bs";
-import { FilterContext } from "./Store/FilterProvider";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { nanoid } from "nanoid";
 import { notification } from "antd";
+import { getPercentage } from "../utils/surveyDropdownHelperFunctions";
 
 const openNotification = (placement) => {
   notification.open({
@@ -23,12 +23,13 @@ const openNotification = (placement) => {
 };
 
 export default function SurveyDropdown({
-  sessionName,
-  questionId,
+  bulkData,
+  responseCount,
+  bootCampDate,
   eachQuestion,
+  questionId,
+  sessionName,
 }) {
-  const { responseCount, bootCampDate, getPercentage, bulkData } =
-    useContext(FilterContext);
   const [isAnalyzeOpen, setIsAnalyzeOpen] = useState(false);
   const [selectedAnswerCounter, setSelectedAnswerCounter] = useState({
     answerCounter: {},
@@ -41,6 +42,7 @@ export default function SurveyDropdown({
   const printRef = useRef();
   const [showText, setShowText] = useState(false);
   const [currentPDF, setCurrentPDF] = useState();
+
   useEffect(() => {
     setCurrentPDF(
       eachQuestion.answerOptions.map((choice) => {
@@ -96,7 +98,7 @@ export default function SurveyDropdown({
   useEffect(() => {
     const result = getPercentage(bulkData, questionId, eachQuestion.pageId);
     setSelectedAnswerCounter(result);
-  }, [bulkData, eachQuestion.pageId, questionId, getPercentage]);
+  }, [bulkData, eachQuestion.pageId, questionId]);
 
   const replies = eachQuestion.answerOptions.map((choice) => {
     const percentage = Math.round(
@@ -227,6 +229,8 @@ export default function SurveyDropdown({
                 comment={comment}
                 sessionName={sessionName}
                 currentPDF={currentPDF}
+                bootCampDate={bootCampDate}
+                responseCount={responseCount}
               />
             </div>
           </>
