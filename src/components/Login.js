@@ -10,8 +10,7 @@ export default function Login() {
     if (user) {
       navigate("/dashboard");
     }
-    // eslint-disable-next-line
-  }, [user]);
+  }, [user, navigate]);
   return (
     <div className="login-page">
       <img className="img" src="../Full Circle.png" alt="icon" />
