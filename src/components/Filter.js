@@ -1,9 +1,17 @@
-import React, { useContext } from "react";
+import React from "react";
 import "../styles/filter.css";
-import { FilterContext } from "./Store/FilterProvider";
-export default function Filter({ options }) {
-  const { handleBootcampChange, dropdownQuestions, handleCourseChoose } =
-    useContext(FilterContext);
+export default function Filter({
+  options,
+  dropdownQuestions,
+  setChoosedCourse,
+  setCurrentSurveyId,
+}) {
+  function handleCourseChoose(e) {
+    setChoosedCourse(e.target.value);
+  }
+  function handleBootcampChange(e) {
+    setCurrentSurveyId(e.target.value);
+  }
 
   const bootCampOptions = options.map((option) => (
     <option key={option.id} value={option.id}>
