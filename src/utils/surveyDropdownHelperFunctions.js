@@ -1,6 +1,3 @@
-const accessToken =
-  "rJOLXwrwqRRUrgYpqlqDVHDDcGAion9PigDidcOBcFAsSG4y8xTMTwFwokakYEXqhjYRpXPWZw6XZZYucTPuL4DUZOTFy-sNoV1ZNr-0i9LOyvHOWYSQyJvqW4o7oz83";
-
 export function getPercentage(bulkData, questionId, pageId) {
   const total = bulkData["data"]?.length; //15 people have responded
   const answerCounter = {};
@@ -33,4 +30,30 @@ export function getPercentage(bulkData, questionId, pageId) {
   });
   // delete answerCounter["undefined"];
   return { answerCounter, total };
+}
+
+export function handleSeeAllComments(
+  bulkData2,
+  eachQuestion,
+  questionId,
+  setIsCommentOpen,
+  setUserFeedBack
+) {
+  const comments = [];
+  bulkData2.data.forEach((eachUser, i) => {
+    const currentPage = eachUser.pages.find(
+      (page) => page.id === eachQuestion.pageId
+    );
+    const currentQuestion = currentPage.questions.find((question, j) => {
+      return question.id === questionId;
+    });
+    comments.push(
+      currentQuestion?.answers[0].text +
+        " - ( " +
+        eachUser.pages[0].questions[0].answers[0].text +
+        " )"
+    );
+  });
+  setIsCommentOpen((prev) => !prev);
+  setUserFeedBack(comments);
 }

@@ -9,7 +9,10 @@ import { BsPercent } from "react-icons/bs";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { nanoid } from "nanoid";
 import { notification } from "antd";
-import { getPercentage } from "../utils/surveyDropdownHelperFunctions";
+import {
+  getPercentage,
+  handleSeeAllComments,
+} from "../utils/surveyDropdownHelperFunctions";
 
 const openNotification = (placement) => {
   notification.open({
@@ -89,11 +92,11 @@ export default function SurveyDropdown({
   }
 
   const handlePdfPreview = () => {
-    setShowText(!showText);
+    setShowText((prev) => !prev);
   };
 
   function handleDropdown() {
-    setIsAnalyzeOpen(!isAnalyzeOpen);
+    setIsAnalyzeOpen((prev) => !prev);
   }
   useEffect(() => {
     const result = getPercentage(bulkData, questionId, eachQuestion.pageId);
@@ -117,25 +120,6 @@ export default function SurveyDropdown({
     );
   });
 
-  function handleSeeAllComments(bulkData2) {
-    const comments = [];
-    bulkData2.data.forEach((eachUser, i) => {
-      const currentPage = eachUser.pages.find(
-        (page) => page.id === eachQuestion.pageId
-      );
-      const currentQuestion = currentPage.questions.find((question, j) => {
-        return question.id === questionId;
-      });
-      comments.push(
-        currentQuestion?.answers[0].text +
-          " - ( " +
-          eachUser.pages[0].questions[0].answers[0].text +
-          " )"
-      );
-    });
-    setIsCommentOpen(!isCommentOpen);
-    setUserFeedBack(comments);
-  }
   return (
     <li className="block">
       <div
@@ -168,7 +152,15 @@ export default function SurveyDropdown({
             ) : (
               <button
                 className="comment-submit-btn"
-                onClick={() => handleSeeAllComments(bulkData)}
+                onClick={() =>
+                  handleSeeAllComments(
+                    bulkData,
+                    eachQuestion,
+                    questionId,
+                    setIsCommentOpen,
+                    setUserFeedBack
+                  )
+                }
               >
                 {`${isCommentOpen ? "HIDE" : "SEE"} ALL COMMENTS`}
               </button>
