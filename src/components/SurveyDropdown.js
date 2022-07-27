@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BsChevronDown } from "react-icons/bs";
 import RepliesAnalyze from "./RepliesAnalyze";
 import "../styles/survey-dropdown.css";
@@ -6,10 +6,13 @@ import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import SurveyPdf from "./SurveyPdf";
 import { BsPercent } from "react-icons/bs";
-import { FilterContext } from "./Store/FilterProvider";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { nanoid } from "nanoid";
 import { notification } from "antd";
+import {
+  getPercentage,
+  handleSeeAllComments,
+} from "../utils/surveyDropdownHelperFunctions";
 
 const openNotification = (placement) => {
   notification.open({
@@ -23,12 +26,13 @@ const openNotification = (placement) => {
 };
 
 export default function SurveyDropdown({
-  sessionName,
-  questionId,
+  bulkData,
+  responseCount,
+  bootCampDate,
   eachQuestion,
+  questionId,
+  sessionName,
 }) {
-  const { responseCount, bootCampDate, getPercentage, bulkData } =
-    useContext(FilterContext);
   const [isAnalyzeOpen, setIsAnalyzeOpen] = useState(false);
   const [selectedAnswerCounter, setSelectedAnswerCounter] = useState({
     answerCounter: {},
@@ -41,6 +45,7 @@ export default function SurveyDropdown({
   const printRef = useRef();
   const [showText, setShowText] = useState(false);
   const [currentPDF, setCurrentPDF] = useState();
+
   useEffect(() => {
     setCurrentPDF(
       eachQuestion.answerOptions.map((choice) => {
@@ -87,16 +92,16 @@ export default function SurveyDropdown({
   }
 
   const handlePdfPreview = () => {
-    setShowText(!showText);
+    setShowText((prev) => !prev);
   };
 
   function handleDropdown() {
-    setIsAnalyzeOpen(!isAnalyzeOpen);
+    setIsAnalyzeOpen((prev) => !prev);
   }
   useEffect(() => {
     const result = getPercentage(bulkData, questionId, eachQuestion.pageId);
     setSelectedAnswerCounter(result);
-  }, [bulkData, eachQuestion.pageId, questionId, getPercentage]);
+  }, [bulkData, eachQuestion.pageId, questionId]);
 
   const replies = eachQuestion.answerOptions.map((choice) => {
     const percentage = Math.round(
@@ -115,25 +120,6 @@ export default function SurveyDropdown({
     );
   });
 
-  function handleSeeAllComments(bulkData2) {
-    const comments = [];
-    bulkData2.data.forEach((eachUser, i) => {
-      const currentPage = eachUser.pages.find(
-        (page) => page.id === eachQuestion.pageId
-      );
-      const currentQuestion = currentPage.questions.find((question, j) => {
-        return question.id === questionId;
-      });
-      comments.push(
-        currentQuestion?.answers[0].text +
-          " - ( " +
-          eachUser.pages[0].questions[0].answers[0].text +
-          " )"
-      );
-    });
-    setIsCommentOpen(!isCommentOpen);
-    setUserFeedBack(comments);
-  }
   return (
     <li className="block">
       <div
@@ -166,7 +152,15 @@ export default function SurveyDropdown({
             ) : (
               <button
                 className="comment-submit-btn"
-                onClick={() => handleSeeAllComments(bulkData)}
+                onClick={() =>
+                  handleSeeAllComments(
+                    bulkData,
+                    eachQuestion,
+                    questionId,
+                    setIsCommentOpen,
+                    setUserFeedBack
+                  )
+                }
               >
                 {`${isCommentOpen ? "HIDE" : "SEE"} ALL COMMENTS`}
               </button>
@@ -227,6 +221,8 @@ export default function SurveyDropdown({
                 comment={comment}
                 sessionName={sessionName}
                 currentPDF={currentPDF}
+                bootCampDate={bootCampDate}
+                responseCount={responseCount}
               />
             </div>
           </>

@@ -1,10 +1,12 @@
-import React, { useContext } from "react";
-import { FilterContext } from "./Store/FilterProvider";
+import React from "react";
 import "../styles/SurveyPdf.css";
-
-const SurveyPdf = ({ comment, sessionName, currentPDF }) => {
-  const { bootCampDate, responseCount } = useContext(FilterContext);
-
+const SurveyPdf = ({
+  comment,
+  sessionName,
+  currentPDF,
+  bootCampDate,
+  responseCount,
+}) => {
   return (
     <div>
       <nav className="pdf-nav">
